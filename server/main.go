@@ -2,11 +2,10 @@ package main
 
 import (
 	"fmt"
+
 	jwtware "github.com/gofiber/contrib/jwt"
 
 	//jwtware "github.com/gofiber/contrib/jwt"
-	"github.com/minio/minio-go/v7"
-	"github.com/minio/minio-go/v7/pkg/credentials"
 	"log"
 	"needful/internal/entities"
 	"needful/internal/handler"
@@ -15,6 +14,9 @@ import (
 	"strings"
 	"time"
 
+	"github.com/minio/minio-go/v7"
+	"github.com/minio/minio-go/v7/pkg/credentials"
+
 	"github.com/gofiber/fiber/v2"
 
 	"github.com/spf13/viper"
@@ -22,17 +24,17 @@ import (
 	"gorm.io/gorm"
 )
 
-const jwtSecret = "NeedFulSecret"
+const jwtSecret = "DishDiveSecret" // password something jwt
 
 func main() {
 	initTimeZone()
 	initConfig()
 	dsn := fmt.Sprintf("%v:%v@tcp(%v:%v)/%v?parseTime=true",
-		viper.GetString("db.username"),
-		viper.GetString("db.password"),
-		viper.GetString("db.host"),
-		viper.GetInt("db.port"),
-		viper.GetString("db.database"),
+		viper.GetString("db.username"), // go reconfig all this in config.yaml
+		viper.GetString("db.password"), // go reconfig all this in config.yaml
+		viper.GetString("db.host"), // go reconfig all this in config.yaml
+		viper.GetInt("db.port"), // go reconfig all this in config.yaml
+		viper.GetString("db.database"), // go reconfig all this in config.yaml
 	)
 	log.Println(dsn)
 
@@ -42,7 +44,7 @@ func main() {
 		panic("Failed to connect database")
 	}
 
-	err = db.AutoMigrate(&entities.User{})
+	err = db.AutoMigrate(&entities.User{}) // use our tables we have 10
 	if err != nil {
 		panic("Failed to AutoMigrate User")
 	}

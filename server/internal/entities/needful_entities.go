@@ -1,6 +1,6 @@
 package entities
 
-type User struct {
+type User struct { // main table
 	UserID    *uint `gorm:"primaryKey;autoIncrement"`
 	Username  *string
 	Password  *string
@@ -11,7 +11,7 @@ type User struct {
 	UserPic   *string
 }
 
-type Item struct {
+type Item struct { // main table
 	ItemID           *uint `gorm:"primaryKey;autoIncrement"`
 	UserID           *uint `gorm:"not null"`
 	Itemname         *string
@@ -28,14 +28,14 @@ type Item struct {
 
 }
 
-type Message struct {
+type Message struct { // main table
 	MsgID          *uint `gorm:"primaryKey;autoIncrement"`
 	SenderUserID   *uint `gorm:"not null;"`
 	ReceiverUserID *uint `gorm:"not null;"`
 	MsgText        *string
 }
 
-type ItemsOfCurrentUserResponse struct {
+type ItemsOfCurrentUserResponse struct { // for query stuff
 	ItemID                  *uint
 	UserID                  *uint
 	Itemname                *string
